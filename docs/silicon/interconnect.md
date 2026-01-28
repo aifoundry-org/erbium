@@ -1,6 +1,15 @@
 
 # Memory Map
 
+| Interface     | Type     |
+| CPU_SUBSYSTEM | AXI      |
+| CPU_SUBSYSTEM | APB      |
+| xSPI          | AXI      |
+| xSPI          | APB      |
+| I2C           | AXI4Lite |
+| QSPI          | AXI4     |
+|               |          |
+
 ![Busmatrix Pathways](output/matrix.png)
 
 ## Interconnect: Transaction Initiators and Targets

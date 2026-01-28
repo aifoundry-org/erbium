@@ -20,11 +20,9 @@ copyright: Veevx Inc
 
 | Port                       | Direction | Note                    |
 | -----                      | :---:     | ------                  |
-| HB_CLK,                    | INPUT     | Clock. Shared with JTAG |
-| HB_RSTN                    | INPUT     | Reset. Shared with JTAG |
-| HB_CS                      | INPUT     | Chip Select             |
-| HB_DQ,                     | INPUT     | Data, Bidirectional     |
-| HB_RWDS,                   | INOUT     | Data Strobe             |
+| XSPI_CS                    | INPUT     | Chip Select             |
+| XSPI_DQ,                   | INPUT     | Data, Bidirectional     |
+| XSPI_RWDS,                 | INOUT     | Data Strobe             |
 
 ## UART Target Interface
 
@@ -54,11 +52,13 @@ copyright: Veevx Inc
 
 ## JTAG Signals
 
-| Port      | Direction | Note     |
-| ------    | :---:     | ------ |
-| JTAG_TDI  | INPUT     |          |
-| JTAG_TDO  | OUTPUT    |          |
-| JTAG_TMS  | INPUT     |          |
+| Port     | Direction | Note                               |
+| ------   | :---:     | ------                             |
+| TCK,     | INPUT     | Clock. Shared with xSPI            |
+| TRSTn    | INPUT     | Reset. Active Low Shared with xSPI |
+| JTAG_TDI | INPUT     |                                    |
+| JTAG_TDO | OUTPUT    |                                    |
+| JTAG_TMS | INPUT     |                                    |
 
 ## Pin Muxing
 
