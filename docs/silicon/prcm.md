@@ -33,17 +33,14 @@ There are dedicated clock and reset signals for each interface
 * This is an external clock with frequency upto 200MHz.
 * If required a bit in the hyperbus register can be written to, to make this the system clock.
 
-## Shire External Resets
+## CPU Subsystem External Resets
 
-![Shire Integration](output/shireIntegration.png)
+![CPU Subsystem Integration](output/shireIntegration.png)
 
-| Reset                          | Description                                      | Register Programming               |
-| ---                            | ------                                           | ---                                |
-| reset_cold                     | Power on reset                                   |                                    |
-| reset_warm                     | Retains state: Does not reset ESR, VC FIFOs etc. | SoftReset.cpu_warm_reset = 0       |
-| dmctrl.ndmreset                | Resets all non-debug logic                       | Handled by CPU Registers           |
-| bpam_run_control.gpio.ndmreset | Internal to Shire                                |                                    |
-| dmctrl.dmactive                | debug logic reset.                               | Handled by CPU Registers           |
+| Reset                          | Description                                      | Register Programming                  |
+| ---                            | ------                                           | ---                                   |
+| reset_cold                     | Full Power on reset                              | From PRCM (POR,soft_reset, brownout) |
+| reset_warm                     | Retains state: Does not reset ESR, VC FIFOs etc. | SoftReset.cpu_warm_reset = 0          |
 
 ## Power Domains.
 
