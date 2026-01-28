@@ -2,13 +2,13 @@
 # Memory Map
 
 | Interface     | Type     |
+| ---           | ---      |
 | CPU_SUBSYSTEM | AXI      |
 | CPU_SUBSYSTEM | APB      |
-| xSPI          | AXI      |
-| xSPI          | APB      |
+| xSPI Data     | AXI      |
+| xSPI Cfg      | APB      |
 | I2C           | AXI4Lite |
 | QSPI          | AXI4     |
-|               |          |
 
 ![Busmatrix Pathways](output/matrix.png)
 
