@@ -1,3 +1,4 @@
-* ![erbium-design.png](Block Diagram)
-* [Specification](https://erbium.readthedocs.io/)
+ [Specification](https://erbium.readthedocs.io/)
+ 
+ ![Block Diagram](erbium-design.png)
   
