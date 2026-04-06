@@ -12,12 +12,16 @@ Welcome to Erbium's documentation!
 
    silicon/index.md
    silicon/signals.md
-   silicon/prcm.md
+   silicon/minion.md
    silicon/interrupts.md
+   silicon/xspi.md
+   silicon/prcm.md
    silicon/interconnect.md
    silicon/bringup.md
-   silicon/hyperbus2.md
    silicon/systemReg.md
+   silicon/xspi_mm.md
+   silicon/cpu_mm.md
+   silicon/dv_master_plan.md
 
 
 
