@@ -5,8 +5,8 @@
 | ---           | ---      |
 | CPU_SUBSYSTEM | AXI      |
 | CPU_SUBSYSTEM | APB      |
-| xSPI          | AXI      |
-| xSPI          | APB      |
+| xSPI Data     | AXI      |
+| xSPI Cfg      | APB      |
 | I2C           | AXI4Lite |
 | QSPI          | AXI4     |
 
@@ -40,7 +40,7 @@ This device can be used as either an Edge AI device or as a simple Flash replace
 |0x02002000|     i2c_registers     |                  —                 |
 |0x02003000|     qspi_registers    |                  —                 |
 |0x02004000|     uart_registers    |                  —                 |
-|0x0200A000|          SRAM         |                  —                 |
+|0x0200A000|          SRAM /ROM        |                  —                 |
 |0x0200F000|     xspi_registers    |                sccr                |
 |0x0E000000|nic_configuration_space|                  —                 |
 |0x40000000|          mram         |                MRAM                |
@@ -61,7 +61,7 @@ Customers accessing Erbium through xSPI interface are expected to use it as a MR
 |0x40002000|     i2c_registers     |                  —                 |
 |0x40003000|     qspi_registers    |                  —                 |
 |0x40004000|     uart_registers    |                  —                 |
-|0x40005000|          SRAM         |                  —                 |
+|0x40005000|          SRAM / ROM        |                  —                 |
 |0x80000000|     cpu_registers     |                  —                 |
 
 **Note** All Register address spaces are 64 bit aligned.

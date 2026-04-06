@@ -20,9 +20,9 @@ copyright: Veevx Inc
 
 | Port                       | Direction | Note                    |
 | -----                      | :---:     | ------                  |
-| XS_CS                      | INPUT     | Chip Select             |
-| XS_DQ,                     | INPUT     | Data, Bidirectional     |
-| XS_RWDS,                   | INOUT     | Data Strobe             |
+| XSPI_CS                    | INPUT     | Chip Select             |
+| XSPI_DQ,                   | INPUT     | Data, Bidirectional     |
+| XSPI_RWDS,                 | INOUT     | Data Strobe             |
 
 ## UART Target Interface
 
