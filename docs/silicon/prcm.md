@@ -2,36 +2,48 @@
 
 ![Clock Domains](output/clk_domains.png)
 
-![PRCM](output/clk.png)
 
 ## Clock and reset signals.
 
 ## System Clocks
 
-There are dedicated clock and reset signals for each interface
+The Device has two clock sources
 
-| Interface | Clock      | Reset            | Note                        |
-| ---       | ----       | -----            | -----                       |
-| Chiplet   | HCLK\_ACLK | HRESETn\_ARESETn | Active low Reset, Tied High |
-| Hyperbus  | HB_CLK     | HB_RSTN          | Active low Reset            |
-| Internal  | OSC_CLK    |                  | Internal Ring Oscillator    |
+| Clock   | Source          | Notes                              |
+| ---     | ---             | -----                              |
+| TCK     | Pin             | XSPI Clock Max 200 Mhz.            |
+| OSC_CLK | Ring Oscillator | Internal Clock Max 1GHz +- 500 MHz |
 
-**Note** In Erbium the Chiplet domain is not available and only hyperbus reset is used to reset the system.
+The OSC_CLK goes through a series of clock Dividers to generate 3 clocks:
+
+* CPU Clock,
+* System Clock
+* Peripheral Clock
+
+| Clock            | Connected IP                                      |
+| ---              | ------                                            |
+| CPU Clock        | Neighborhood, MRAM, MRAM Registers, CPU Registers |
+| System Clock     | aon logic, PRCM, system reg, BOOTROM, SRAM        |
+| Peripheral Clock | UARt, I2C, QSPI                                   |
+| XSPI CLK         | XSPI                                              |
+
+![Clock Divider](output/clkDiv.png)
+
 
 ## OSC Clock
 * This is a high speed clock generated internally from a ring oscillator.
 * The raw ring oscillator(RO) frequency is process dependent and can vary by a few hundred MHz from the designed frequency.
-* The first level clock divider is programmed to divide the output of the RO by 20 resulting in a <75MHz boot clock.
+* The first level clock divider is programmed to divide the output of the RO by 32 resulting in a <31 MHz boot clock.
 * The tester measures the RO frequency, and process variation and writes it to the OTP. This is used to
 	* Trim the RO to generate a 1GHz clock.
 	* Program the clock divider to provide the required highspeed CPU Clock.
 	* Clock dividers can be reprogrammed later as per the system load.
-* MRAM and rest of the system operates at a 200MHz clock. A second clock divider divides the `high speed clock` to generate the `system clock`
+* A second clock divider divides the `high speed cpu clock` to generate the `system clock`
 * Serial protocols require a clock programmed to N times the required baud rate. The Peripheral clock is used as this sampling clock.
 
-## Hyperbus Clock
+## xSPI Clock
 * This is an external clock with frequency upto 200MHz.
-* If required a bit in the hyperbus register can be written to, to make this the system clock.
+* If required a bit in the xspi register can be written to, to make this the system clock.
 
 ## CPU Subsystem External Resets
 
@@ -42,6 +54,21 @@ There are dedicated clock and reset signals for each interface
 | reset_cold                     | Full Power on reset                              | From PRCM (POR,soft_reset, brownout) |
 | reset_warm                     | Retains state: Does not reset ESR, VC FIFOs etc. | SoftReset.cpu_warm_reset = 0          |
 
+## Reset Sequencing
+
+![Reset Sequence](output/resetSequence.png)
+
+At power on the Ring oscillator and clock dividers have unknown configuration.
+After reset is applied 
+
+* The ring oscillator immediately switched to the default configuration (clock divider enabled, slowest speed).
+* Each clock divider latches its configuration(div by 32) only after its internal counter reaches the reload phase.
+* The first reset extender ensures that the device remains in reset state until the system divider reloads.
+* Power on reset asynchronously resets system registers and xspi ensuring that the correct configuration reaches the ring oscillator, clock dividers and tck/osc_clk mux.
+* A Shift register sequences the reset to other modules one by one ensuring that all modules do not enter the reset stage at the same time resulting in a large power drop.
+* The reset extender of the power aware reset module ensures that all modules remain in reset for atleast a few common cycles.
+* Cpu_system is the last entity to be brought out of reset to ensure that it does not start accessing memory regions that are still in reset.
+	* At this point cpu subsystem can start programming the ring oscillator and clock dividers to speed up the clock. 
 ## Power Domains.
 
 The device contains the following power domains.
@@ -54,7 +81,9 @@ The device contains the following power domains.
 * Each powerdomain is controlled via a power switch.
 * At Boot every Digital Domain powerswitch is turned on.
 * The boot routine will check the OTP register for domains that need to be powered down after boot and write to the corresponding system_registers.PowerDownReq bits.
+
 ## Valid Power State
+
 
 ### Simple Power States
 | State                               | Sys PS          | MRAM Digital PS | MRAM PS        | cpu subsystem PS | ROM/ SRAM PS | minion PS[7:0]  | Notes                                            |
@@ -74,6 +103,8 @@ The device contains the following power domains.
 	* Minion_x OFF + MRAM OFF
 
 ## Power State Controller FSM.
+
+![Power Aware reset](output/powerAware.png)
 
 * At boot the FSM is in normal state.
 * Writing to pd_req initiates the power down sequence.
