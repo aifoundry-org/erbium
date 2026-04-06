@@ -18,7 +18,6 @@ Welcome to Erbium's documentation!
    silicon/prcm.md
    silicon/interconnect.md
    silicon/bringup.md
-   silicon/systemReg.md
    silicon/xspi_mm.md
    silicon/cpu_mm.md
    silicon/dv_master_plan.md
