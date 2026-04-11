@@ -170,13 +170,18 @@ No supported members.
 - Base Offset: 0x20
 - Size: 0x4
 
-|Bits|Identifier|Access|Reset|Name|
-|----|----------|------|-----|----|
-|  0 | interrupt|  rw  | 0x0 |  — |
+|Bits|  Identifier  | Access |Reset|Name|
+|----|--------------|--------|-----|----|
+|  0 |   interrupt  |rw, rclr| 0x0 |  — |
+|  1 |gpio_interrupt| r, rclr| 0x0 |  — |
 
 #### interrupt field
 
-<p>Write to this bit to generate an interrupt</p>
+<p>Write to this bit to generate an interrupt. Clear on read</p>
+
+#### gpio_interrupt field
+
+<p>GPIO In Interrupt. Clear on read</p>
 
 ### SoftReset register
 
@@ -2255,16 +2260,16 @@ cycle (0..8).</p>
 - Base Offset: 0x8
 - Size: 0x4
 
-|Bits|  Identifier |Access|Reset|Name|
-|----|-------------|------|-----|----|
-|  0 |     busy    |   r  | 0x0 |  — |
-|  1 | bus_control |   r  | 0x0 |  — |
-|  2 |  bus_active |   r  | 0x0 |  — |
-|  3 |  missed_ack |   r  | 0x0 |  — |
-|  4 |cmd_ff_n_full|   r  |  —  |  — |
-|  5 | tx_ff_n_full|   r  |  —  |  — |
-|  6 | rx_ff_n_full|   r  |  —  |  — |
-|  7 | rx_overflow |   r  |  —  |  — |
+|Bits|  Identifier | Access|Reset|Name|
+|----|-------------|-------|-----|----|
+|  0 |     busy    |   r   | 0x0 |  — |
+|  1 | bus_control |   r   | 0x0 |  — |
+|  2 |  bus_active |   r   | 0x0 |  — |
+|  3 |  missed_ack |r, rclr| 0x0 |  — |
+|  4 |cmd_ff_n_full|   r   |  —  |  — |
+|  5 | tx_ff_n_full|   r   |  —  |  — |
+|  6 | rx_ff_n_full|   r   |  —  |  — |
+|  7 | rx_overflow |   r   |  —  |  — |
 
 #### busy field
 

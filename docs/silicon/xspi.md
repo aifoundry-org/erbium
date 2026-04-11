@@ -1,5 +1,6 @@
 # XSPI Datasheet
-\Begin{multicols}{2}
+
+<div class="multicols" markdown="1">
 
 * xSPI bus interface supporting
 	* 1S-1S-1S (SPI)
@@ -12,7 +13,7 @@
 * Deep Powerdown mode
 * Based on JESD251C, JESD215C-1, JESD216H
 
-\End{multicols}
+</div>
 
  
 ## Commands

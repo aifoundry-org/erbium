@@ -1,0 +1,36 @@
+site_name: Erbium Technical Reference Manual
+theme:
+  name: readthedocs
+docs_dir: silicon
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.details
+nav:
+  - Overview:
+    - Summary: index.md
+    - Interfaces: signals.md 
+  - Architecture:
+    - CPU Subsystem: cpu_subsystem.md
+    - CPU Core: minion.md
+    - Interrupts: interrupts.md
+    - Power, Reset, Clock Control: prcm.md
+    - Memory Map: interconnect.md
+    - MRAM: mram.md
+    - Peripherals:
+      - XSPI:
+        - XSPI Core: xspi.md
+        - XSPI Configuration: sccr.md
+        - XSPI SFPD: sfpd.md
+      - QSPI: qspi.md
+      - I2C: i2c.md
+      - GPIO: gpio.md
+      - UART: uart.md
+  - Verification:
+    - Simulation Environment: simulation.md 
+    - Verification Plan: dv_master_plan.md
+  - Programmers Reference: 
+    - Bringup Sequence: bringup.md 
+    - CPU's Memorymap: cpu_mm.md
+    - XSPI's Memorymap: xspi_mm.md

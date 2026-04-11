@@ -162,13 +162,18 @@ Don't override. Generated from: ErbiumCPU_MemoryMap
 - Base Offset: 0x20
 - Size: 0x4
 
-|Bits|Identifier|Access|Reset|Name|
-|----|----------|------|-----|----|
-|  0 | interrupt|  rw  | 0x0 |  — |
+|Bits|  Identifier  | Access |Reset|Name|
+|----|--------------|--------|-----|----|
+|  0 |   interrupt  |rw, rclr| 0x0 |  — |
+|  1 |gpio_interrupt| r, rclr| 0x0 |  — |
 
 #### interrupt field
 
-<p>Write to this bit to generate an interrupt</p>
+<p>Write to this bit to generate an interrupt. Clear on read</p>
+
+#### gpio_interrupt field
+
+<p>GPIO In Interrupt. Clear on read</p>
 
 ### SoftReset register
 
@@ -2247,16 +2252,16 @@ cycle (0..8).</p>
 - Base Offset: 0x8
 - Size: 0x4
 
-|Bits|  Identifier |Access|Reset|Name|
-|----|-------------|------|-----|----|
-|  0 |     busy    |   r  | 0x0 |  — |
-|  1 | bus_control |   r  | 0x0 |  — |
-|  2 |  bus_active |   r  | 0x0 |  — |
-|  3 |  missed_ack |   r  | 0x0 |  — |
-|  4 |cmd_ff_n_full|   r  |  —  |  — |
-|  5 | tx_ff_n_full|   r  |  —  |  — |
-|  6 | rx_ff_n_full|   r  |  —  |  — |
-|  7 | rx_overflow |   r  |  —  |  — |
+|Bits|  Identifier | Access|Reset|Name|
+|----|-------------|-------|-----|----|
+|  0 |     busy    |   r   | 0x0 |  — |
+|  1 | bus_control |   r   | 0x0 |  — |
+|  2 |  bus_active |   r   | 0x0 |  — |
+|  3 |  missed_ack |r, rclr| 0x0 |  — |
+|  4 |cmd_ff_n_full|   r   |  —  |  — |
+|  5 | tx_ff_n_full|   r   |  —  |  — |
+|  6 | rx_ff_n_full|   r   |  —  |  — |
+|  7 | rx_overflow |   r   |  —  |  — |
 
 #### busy field
 
@@ -3077,14 +3082,42 @@ No supported members.
 |  3  |   FixedLatency   |   r  | 0x1 |  — |
 | 7:4 |  InitialLatency  |  rw  | 0x8 |  — |
 | 11:8|     Reserved     |   r  | 0x1 |  — |
-|14:12|   DriveStrength  |   r  | 0x0 |  — |
+|14:12|   DriveStrength  |   r  | 0x3 |  — |
 |  15 |   DeepPowerDown  |  rw  | 0x0 |  — |
 |  16 |    BurstEnable   |  rw  | 0x0 |  — |
 |  17 |UltraDeepPowerDown|  rw  | 0x0 |  — |
 
+#### BurstLength field
+
+<p>Burst Length</p>
+
+#### HybridBurstEnable field
+
+<p>Burst Enable</p>
+
+#### FixedLatency field
+
+<p>Fixed Latency</p>
+
+#### InitialLatency field
+
+<p>Initial Latency.</p>
+
+#### DriveStrength field
+
+<p>Drive Strength.</p>
+
+#### DeepPowerDown field
+
+<p>Deep Power down, Not too deep, not too shallow</p>
+
 #### BurstEnable field
 
 <p>Enable bust access. Applicable only to memory access. Register access are one at a time</p>
+
+#### UltraDeepPowerDown field
+
+<p>Ultra Deep Power down.</p>
 
 ### xspi_status register
 
@@ -3098,7 +3131,7 @@ No supported members.
 
 #### wip field
 
-<p>write in progress</p>
+<p>write in progress; Valid only after a write mem transaction</p>
 
 ### xspi_control register
 

@@ -15,6 +15,7 @@ header-includes: |
 ![Erbuim RISC-V Isotope](output/dut.png)
 
 Erbium is 
+
 * 8C,16T RISC-V Core, ISA(RV64IMFC_Zicsr_Zifencei +Tensor, +Vector +Atomic)
 * I2C and QSPI Controllers
 * xSPI and UART Target interfaces
@@ -24,9 +25,10 @@ Erbium is
 	* Boot from MRAM. (via OTP setting)
 	* Boot from SRAM (in test mode)
 
-\Begin{multicols}{2}
+<div class="multicols" markdown="1">
 
 ## Features
+
 * External Interfaces
 	* JTAG
 	* UART
@@ -96,4 +98,4 @@ Erbium is
     * Atomic \( __AMO__ \) --> PS and PI AMO operations
     * __Tensor__  --> Memory\, FMA32\, FMA16A32\, IMA8A32\, QUANT\, REDUCE operations
 
-\End{multicols}
+</div>
